@@ -28,7 +28,7 @@ def LoadingData():
             if not last_zip_link.startswith('http'):
                 last_zip_link = temp_url + last_zip_link
  
-            zip_file_save_directory = "./Zipped"
+            zip_file_save_directory = "./Zipped/"
             print(f"Downloading {last_zip_link}...")
             downloaded_file = wget.download(last_zip_link, out=zip_file_save_directory)
         
@@ -40,7 +40,7 @@ def LoadingData():
 
 # unzips
 
-    unzipped_dir = "./Unzipped"
+    unzipped_dir = "./Unzipped/"
     with ZipFile(downloaded_file, 'r') as zObject:
         file_pattern = "*.zip"
         file_paths = glob.glob(os.path.join(zip_file_save_directory, file_pattern))
