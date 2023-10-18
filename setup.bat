@@ -1,4 +1,4 @@
 cd "code/"
-start data_loader.bat
+start tv1data_loader.bat
 
 start query.bat
