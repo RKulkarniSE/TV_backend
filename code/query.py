@@ -11,15 +11,15 @@ cors = CORS(app)
 scheduler = sched.scheduler(time.time, time.sleep)
 SCADAinterval = 300
 
-@app.route('/DUID')
+@app.route('/TV1/DUID')
 def returnDUID():
     return DataframeConversion('DUID')
 
-@app.route('/SCADA')
+@app.route('/TV1/SCADA')
 def returnSCADA():
     return run_periodically(scheduler, SCADAinterval)
 
-@app.route('/CAPACITY')
+@app.route('/TV1/CAPACITY')
 def returnCAP():
     return DataframeConversion('Generator Capacity (MW)')
 
