@@ -37,7 +37,7 @@ def returnStatus():
 
 @app.route('/FOOTPRINTS/TICKET')
 def returnTicketNo():
-    return returnColumn('Global Ticket No.')
+    return returnColumn('Ticket Number')
 
 @app.route('/FOOTPRINTS/ACCOUNT')
 def returnAccount():
@@ -45,7 +45,7 @@ def returnAccount():
 
 @app.route('/FOOTPRINTS/PRODUCT')
 def returnProduct():
-    return returnColumn('Product')
+    return returnColumn('Title')
 
 if __name__ == '__main__':
     app.run(port=8080)
