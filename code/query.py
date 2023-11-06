@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 import sched
 import time
@@ -48,9 +48,24 @@ def returnAccount():
 def returnProduct():
     return returnColumn('Title')
 
-@app.route('/KPI')
-def returnKPI():
-    return returnFootprintsData('Date Created')
+@app.route('/KPI/TOP_TICKET_SITES')
+def returnTopTicketSites():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    return f'Returning ticket per site from {start_date} to {end_date}'
+
+@app.route('/KPI/TICKET_PER_SITE')
+def returnTicketPerSite():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    return f'Returning ticket per site from {start_date} to {end_date}'
+    
+
+@app.route('/KPI/TICKET_PER_PRODUCT')
+def returnTicketPerProduct():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    return f'Returning ticket per site from {start_date} to {end_date}'
 
 if __name__ == '__main__':
     app.run(port=8080)
