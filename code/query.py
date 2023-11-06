@@ -52,7 +52,8 @@ def returnProduct():
 def returnTopTicketSites():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    return f'Returning ticket per site from {start_date} to {end_date}'
+    
+    return f'Returning top ticket sites from {start_date} to {end_date}'
 
 @app.route('/KPI/TICKET_PER_SITE')
 def returnTicketPerSite():
@@ -65,7 +66,7 @@ def returnTicketPerSite():
 def returnTicketPerProduct():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    return f'Returning ticket per site from {start_date} to {end_date}'
+    return f'Returning ticket per product from {start_date} to {end_date}'
 
 if __name__ == '__main__':
     app.run(port=8080)

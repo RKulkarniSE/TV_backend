@@ -29,11 +29,14 @@ def returnFootprintsData():
     return footprints_dataframe
 
 # return ticket range
-def returnTickets(start_date, end_date):
+def returnTopSites(start_date, end_date):
     data = returnFootprintsData()
     data["Date Created"] = pd.to_datetime(data["Date Created"])
-
     result_df = data[(data['Date Created'] >= start_date) & (data['Date Created'] <= end_date)]
-    print(result_df)
 
-returnTickets('2020-04-09', '2021-01-12')
+    # return the most frequent element, by 'Account'
+    word_series = pd.Series(result_df['Account'])
+    word_count = word_series.value_counts()[:5].index.tolist()
+    print(word_count)
+
+returnTopSites('2023-01-20', '2023-01-27')
