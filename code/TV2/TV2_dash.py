@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import glob
 
-folder_path = "Footprints Data/Ticket Daily Report"
+folder_path = "code/Footprints Data/Ticket Daily Report"
 folders = os.listdir(folder_path)
 latest_folder = max(folders)
 

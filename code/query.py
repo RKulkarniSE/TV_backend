@@ -4,6 +4,7 @@ import sched
 import time
 from TV1.TV1_dash import DataframeConversion, run_periodically
 from TV2.TV2_dash import returnColumn
+from TV3.TV3_dash import returnFootprintsData
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -46,6 +47,10 @@ def returnAccount():
 @app.route('/FOOTPRINTS/PRODUCT')
 def returnProduct():
     return returnColumn('Title')
+
+@app.route('/KPI')
+def returnKPI():
+    return returnFootprintsData('Date Created')
 
 if __name__ == '__main__':
     app.run(port=8080)
