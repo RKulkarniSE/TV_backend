@@ -1,9 +1,12 @@
 import pandas as pd
 import os
 import glob
+import time
+
+products_list = {'OPC', 'RuggedCom', 'Security Server', 'T3000', 'NAS', 'S7', 'CS3000', 'AS3000', 'McAfee', 'Thin Client'}
 
 # iterate through folders in Footprints Data and store in a dataframe
-def returnFootprintsData():
+def footprintsData():
     footprints_path = "code/Footprints Data/Ticket Daily Report"
     all_folders = os.listdir(footprints_path)
     li = []
@@ -28,15 +31,47 @@ def returnFootprintsData():
     footprints_dataframe = pd.concat(li, ignore_index=True)
     return footprints_dataframe
 
-# return ticket range
-def returnTopSites(start_date, end_date):
-    data = returnFootprintsData()
+def topSites(start_date, end_date):
+    data = footprintsData()
     data["Date Created"] = pd.to_datetime(data["Date Created"])
     result_df = data[(data['Date Created'] >= start_date) & (data['Date Created'] <= end_date)]
 
-    # return the most frequent element, by 'Account'
+    number_of_results = 5
     word_series = pd.Series(result_df['Account'])
-    word_count = word_series.value_counts()[:5].index.tolist()
-    print(word_count)
+    word_count = word_series.value_counts()[:number_of_results].index.tolist()
+    return word_count
 
-returnTopSites('2023-01-20', '2023-01-27')
+def ticketPerSite(start_date, end_date):
+    data = footprintsData()
+    data["Date Created"] = pd.to_datetime(data["Date Created"])
+    result_df = data[(data['Date Created'] >= start_date) & (data['Date Created'] <= end_date)]
+
+    word_series = pd.Series(result_df['Account'])
+    word_count = word_series.value_counts()
+    return word_count
+
+def ticketByPriority(start_date, end_date):
+    data = footprintsData()
+    data["Date Created"] = pd.to_datetime(data["Date Created"])
+    result_df = data[(data['Date Created'] >= start_date) & (data['Date Created'] <= end_date)]
+    """
+    PRIORITIES:
+    1-ASAP      2-HIGH      3-MED       4-LOW
+    """
+    word_series = pd.Series(result_df['Priority'])
+    word_count = word_series.value_counts()
+    return word_count.to_json()
+
+def ticketByProduct(start_date, end_date):
+    data = footprintsData()
+    data["Date Created"] = pd.to_datetime(data["Date Created"])
+    result_df = data[(data['Date Created'] >= start_date) & (data['Date Created'] <= end_date)]
+
+    word_series = pd.Series(result_df['Title'])
+    product_set = set(products_list)
+    for word in word_series:
+        for product in product_set:
+            if (product in word):
+                print(word)
+
+ticketByProduct('2021-02-11', '2021-02-11')

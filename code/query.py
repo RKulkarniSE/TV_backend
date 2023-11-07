@@ -4,7 +4,7 @@ import sched
 import time
 from TV1.TV1_dash import DataframeConversion, run_periodically
 from TV2.TV2_dash import returnColumn
-from TV3.TV3_dash import returnFootprintsData
+from TV3.TV3_dash import topSites, ticketPerSite, ticketByPriority
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -53,13 +53,13 @@ def returnTopTicketSites():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
     
-    return f'Returning top ticket sites from {start_date} to {end_date}'
+    return topSites(start_date, end_date)
 
-@app.route('/KPI/TICKET_PER_SITE')
+@app.route('/KPI/TICKET_BY_PRIORITY')
 def returnTicketPerSite():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    return f'Returning ticket per site from {start_date} to {end_date}'
+    return ticketByPriority(start_date, end_date)
     
 
 @app.route('/KPI/TICKET_PER_PRODUCT')
