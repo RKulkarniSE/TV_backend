@@ -69,9 +69,12 @@ def ticketByProduct(start_date, end_date):
 
     word_series = pd.Series(result_df['Title'])
     product_set = set(products_list)
+    result_set = []
     for word in word_series:
         for product in product_set:
             if (product in word):
-                print(word)
+                result_set.append(product)
 
-ticketByProduct('2021-02-11', '2021-02-11')
+    result_set = pd.Series(result_set)
+    print(result_set.value_counts())
+ticketByProduct('2020-03-23', '2023-11-03')
