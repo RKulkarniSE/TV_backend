@@ -7,7 +7,7 @@ products_list = {'OPC', 'RuggedCom', 'Security Server', 'T3000', 'NAS', 'S7', 'C
 
 # iterate through folders in Footprints Data and store in a dataframe
 def footprintsData():
-    footprints_path = "code/Footprints Data/Ticket Daily Report"
+    footprints_path = "Footprints Data/Ticket Daily Report"
     all_folders = os.listdir(footprints_path)
     li = []
     dates_column = []
@@ -48,7 +48,7 @@ def ticketPerSite(start_date, end_date):
 
     word_series = pd.Series(result_df['Account'])
     word_count = word_series.value_counts()
-    return word_count
+    return word_count.to_json()
 
 def ticketByPriority(start_date, end_date):
     data = footprintsData()
@@ -75,6 +75,7 @@ def ticketByProduct(start_date, end_date):
             if (product in word):
                 result_set.append(product)
 
-    result_set = pd.Series(result_set)
-    print(result_set.value_counts())
-ticketByProduct('2020-03-23', '2023-11-03')
+    result_set = pd.Series(result_set).value_counts()
+    return result_set.to_json()
+
+print(ticketByProduct('2020-03-23', '2023-11-03'))

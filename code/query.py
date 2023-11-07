@@ -3,14 +3,15 @@ from flask_cors import CORS
 import sched
 import time
 from TV1.TV1_dash import DataframeConversion, run_periodically
-from TV2.TV2_dash import returnColumn
-from TV3.TV3_dash import topSites, ticketPerSite, ticketByPriority
+from TV2.TV2_dash import returnColumn, footprints_run_periodically
+from TV3.TV3_dash import topSites, ticketPerSite, ticketByPriority, ticketByProduct
 app = Flask(__name__)
 cors = CORS(app)
 
 
 scheduler = sched.scheduler(time.time, time.sleep)
 SCADAinterval = 300
+footprintInterval = 86400
 
 @app.route('/TV1/DUID')
 def returnDUID():
@@ -26,27 +27,33 @@ def returnCAP():
 
 @app.route('/FOOTPRINTS/ASSIGNEES')
 def returnAssignees():
-    return returnColumn('Assignees')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Assignees')
+    # return returnColumn('Assignees')
 
 @app.route('/FOOTPRINTS/SUBMITTED')
 def returnSubmission():
-    return returnColumn('Date Submitted')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Date Submitted')
+    # return returnColumn('Date Submitted')
 
 @app.route('/FOOTPRINTS/STATUS')
 def returnStatus():
-    return returnColumn('Status')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Status')
+    # return returnColumn('Status')
 
 @app.route('/FOOTPRINTS/TICKET')
 def returnTicketNo():
-    return returnColumn('Ticket Number')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Ticket Number')
+    # return returnColumn('Ticket Number')
 
 @app.route('/FOOTPRINTS/ACCOUNT')
 def returnAccount():
-    return returnColumn('Account')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Account')
+    # return returnColumn('Account')
 
 @app.route('/FOOTPRINTS/PRODUCT')
 def returnProduct():
-    return returnColumn('Title')
+    return footprints_run_periodically(scheduler, footprintInterval, 'Title')
+    # return returnColumn('Title')
 
 @app.route('/KPI/TOP_TICKET_SITES')
 def returnTopTicketSites():
@@ -56,7 +63,7 @@ def returnTopTicketSites():
     return topSites(start_date, end_date)
 
 @app.route('/KPI/TICKET_BY_PRIORITY')
-def returnTicketPerSite():
+def returnTicketByPriority():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
     return ticketByPriority(start_date, end_date)
@@ -66,7 +73,14 @@ def returnTicketPerSite():
 def returnTicketPerProduct():
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    return f'Returning ticket per product from {start_date} to {end_date}'
+    return ticketByProduct(start_date, end_date)
+
+@app.route('/KPI/TICKET_PER_SITE')
+def returnTicketPerSite():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    return ticketPerSite(start_date, end_date)
+
 
 if __name__ == '__main__':
     app.run(port=8080)

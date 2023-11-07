@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import glob
 
-folder_path = "code/Footprints Data/Ticket Daily Report"
+folder_path = "Footprints Data/Ticket Daily Report"
 folders = os.listdir(folder_path)
 latest_folder = max(folders)
 
@@ -16,4 +16,9 @@ df = pd.read_csv(latest_report, encoding="ISO-8859-1")
 
 def returnColumn(column):
     dfStatus = df[column]
+    return dfStatus.to_json()
+
+def footprints_run_periodically(sc, interval, column):
+    dfStatus = df[column]
+    sc.enter(interval, 1, footprints_run_periodically, (sc,))
     return dfStatus.to_json()
