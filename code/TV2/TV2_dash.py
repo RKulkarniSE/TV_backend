@@ -13,6 +13,8 @@ all_csv_files.sort(key=os.path.getmtime)
 latest_report = all_csv_files[-1]
 
 df = pd.read_csv(latest_report, encoding="ISO-8859-1")
+df = df.reindex(index=df.index[::-1])
+df = df.reset_index(drop=True)
 
 def returnColumn(column):
     dfStatus = df[column]

@@ -77,5 +77,3 @@ def ticketByProduct(start_date, end_date):
 
     result_set = pd.Series(result_set).value_counts()
     return result_set.to_json()
-
-print(ticketByProduct('2020-03-23', '2023-11-03'))

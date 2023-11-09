@@ -28,32 +28,26 @@ def returnCAP():
 @app.route('/FOOTPRINTS/ASSIGNEES')
 def returnAssignees():
     return footprints_run_periodically(scheduler, footprintInterval, 'Assignees')
-    # return returnColumn('Assignees')
 
 @app.route('/FOOTPRINTS/SUBMITTED')
 def returnSubmission():
     return footprints_run_periodically(scheduler, footprintInterval, 'Date Submitted')
-    # return returnColumn('Date Submitted')
 
 @app.route('/FOOTPRINTS/STATUS')
 def returnStatus():
     return footprints_run_periodically(scheduler, footprintInterval, 'Status')
-    # return returnColumn('Status')
 
 @app.route('/FOOTPRINTS/TICKET')
 def returnTicketNo():
     return footprints_run_periodically(scheduler, footprintInterval, 'Ticket Number')
-    # return returnColumn('Ticket Number')
 
 @app.route('/FOOTPRINTS/ACCOUNT')
 def returnAccount():
     return footprints_run_periodically(scheduler, footprintInterval, 'Account')
-    # return returnColumn('Account')
 
 @app.route('/FOOTPRINTS/PRODUCT')
 def returnProduct():
     return footprints_run_periodically(scheduler, footprintInterval, 'Title')
-    # return returnColumn('Title')
 
 @app.route('/KPI/TOP_TICKET_SITES')
 def returnTopTicketSites():
