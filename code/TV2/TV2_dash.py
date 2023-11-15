@@ -3,11 +3,10 @@ import os
 import glob
 
 folder_path = "Footprints Data/Ticket Daily Report"
-folders = os.listdir(folder_path)
+folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
 latest_folder = max(folders)
-
+print(latest_folder)
 dir_path = f"{folder_path}/{latest_folder}"
-files = os.listdir(dir_path)
 all_csv_files = glob.glob(os.path.join(dir_path, "*.csv"))
 all_csv_files.sort(key=os.path.getmtime)
 latest_report = all_csv_files[-1]
