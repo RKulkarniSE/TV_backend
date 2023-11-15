@@ -1,8 +1,8 @@
 import pandas as pd
 import os
-import glob
-import time
 
+# list of products to be searched in the Footprints Data
+# you can add products to this list if you want
 products_list = {'OPC', 'RuggedCom', 'Security Server', 'T3000', 'NAS', 'S7', 'CS3000', 'AS3000', 'McAfee', 'Thin Client'}
 
 # iterate through folders in Footprints Data and store in a dataframe

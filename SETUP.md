@@ -9,6 +9,6 @@ installation
 
 Note: YOUR_PATH is specific to your local machine and you need to change it based on where you are running this project 
 
-5. Install dependencies with pip install -r requirements.txt
+5. Install dependencies with `pip install -r requirements.txt`
 
 6. Run the backend by double clicking the setup.bat file
