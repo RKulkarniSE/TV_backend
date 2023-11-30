@@ -54,7 +54,6 @@ def LoadingData():
     all_csv_files = glob.glob(os.path.join(dir_path, "*.CSV"))
     all_csv_files.sort(key=os.path.getmtime)
     if all_csv_files and len(files) > 2:
-        print(all_csv_files)
         oldest_csv = all_csv_files[0]
         os.remove(oldest_csv)
         print(f"Deleted oldest file: {oldest_csv}")
