@@ -7,12 +7,14 @@ products_list = {'OPC', 'RuggedCom', 'Security Server', 'T3000', 'NAS', 'S7', 'C
 
 # iterate through folders in Footprints Data and store in a dataframe
 def footprintsData():
-    footprints_path = "Footprints Data/Ticket Daily Report"
-    all_folders = os.listdir(footprints_path)
+    footprints_path = "Footprints Data/Ticket Daily Report"    
+    all_folders = [f for f in os.listdir(footprints_path) if os.path.isdir(os.path.join(footprints_path, f))]
+    
     li = []
     dates_column = []
     for folder in all_folders:
         folder_path = os.listdir(f"{footprints_path}/{folder}")
+        
         for file in folder_path:
             if(file.endswith('.csv') != True):
                 data_xls = pd.read_excel(f"{footprints_path}/{folder}/{file}", index_col=None)
